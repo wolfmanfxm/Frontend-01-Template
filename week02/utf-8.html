@@ -1,0 +1,25 @@
+
+<html>
+    <input type="text">
+    <button>提交</button>
+    <div style="background-color: lightgreen;width: 500px;height: 300px;">
+
+    </div>
+</html>
+<script>
+
+
+    var reg = /[\u0021-\u007E]{6,16}|[\x21-\x7E]{6,16}|(['"])(?:(?!\1).)*?\1/
+    
+
+    var btn = document.getElementsByTagName('button')[0]
+
+    var oDiv = document.getElementsByTagName('div')[0]
+
+    btn.onclick = function(){
+        var val = document.getElementsByTagName('input')[0].value
+
+        oDiv.innerHTML = val.split('').map((s) => `\\u${s.charCodeAt(0).toString(16)}`).join('');
+    }
+
+</script>
