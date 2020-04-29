@@ -1,0 +1,74 @@
+
+<html>
+    <h1>字符串转为十进制数字</h1>
+    <input type="text" />
+    原进制<select>
+        <option>2</option>
+        <option>8</option>
+        <option>10</option>
+        <option>16</option>
+    </select>
+    <button>提交</button>
+    <div style="background-color: lightgreen;width: 500px;height: 300px;">
+
+    </div>
+</html>
+<script>
+
+    function coverStingToNumber(string, x){
+        var arr = string.split('.');
+        var integer = arr[0].split('')
+        var fraction = arr[1]
+        var num = 0;
+
+        if(fraction){
+            if(x == 10){
+                fraction = fraction.split('')
+                for(let i = 0; i < fraction.length; i++){
+                    num += (fraction[i].codePointAt(0) - '0'.codePointAt(0)) / (x**(i+1))
+                }
+            }else{
+                alert('非十进制转换，不能存在小数！')
+                return
+            }
+            
+        }
+
+        var reverseInteger = integer.reverse();
+
+        for(let i = 0; i < reverseInteger.length; i++){
+            if(reverseInteger[i].match(/[0-9]/)){
+                num += (reverseInteger[i].codePointAt(0) - '0'.codePointAt(0)) * (x**i)
+            }else{
+                num += (reverseInteger[i].codePointAt(0) - '7'.codePointAt(0)) * (x**i)
+            }
+            
+        }
+
+        return num
+    }
+
+
+
+
+    var btn = document.getElementsByTagName('button')[0]
+
+    var oDiv = document.getElementsByTagName('div')[0]
+
+    var reg = /^([\+\-]?([0-9A-F]+)?(\.[0-9]*)?)$/
+
+    btn.onclick = function(){
+        var val = document.getElementsByTagName('input')[0].value
+        var sel = document.getElementsByTagName('select')[0].value
+
+        if(val == '' || (!reg.test(val)) ){
+            alert('please input rightful !')
+            return
+        }
+
+        var num = coverStingToNumber(val, sel)
+
+        oDiv.innerHTML = typeof(num) + '-' + num
+    }
+
+</script>

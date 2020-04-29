@@ -1,0 +1,58 @@
+
+<html>
+    <input type="text" />
+    原进制<select>
+        <option>2</option>
+        <option>8</option>
+        <option>10</option>
+        <option>16</option>
+    </select>
+    <button>提交</button>
+    <div style="background-color: lightgreen;width: 500px;height: 300px;">
+
+    </div>
+</html>
+<script>
+
+    function convertNumberToString(number, x) {
+        let integer = Math.floor(number);
+        let fraction = String(number).match(/\.\d+$/);
+
+        if (fraction) {
+            fraction = fraction[0].replace('.', '');
+        }
+
+        let string = '';
+
+        while (integer > 0) {
+            string = String(integer % x) + string;
+            integer = Math.floor(integer / x);
+        }
+
+        return fraction ? `${string}.${fraction}` : string;
+    }
+
+
+
+
+    var btn = document.getElementsByTagName('button')[0]
+
+    var oDiv = document.getElementsByTagName('div')[0]
+
+    var reg = /^([\+\-]?([0-9A-F]+)?(\.[0-9]*)?)$/
+
+    btn.onclick = function(){
+        var val = document.getElementsByTagName('input')[0].value
+        var sel = document.getElementsByTagName('select')[0].value
+
+        if(val == '' || (!reg.test(val)) ){
+            alert('please input rightful !')
+            return
+        }
+
+        var num = convertNumberToString(val, sel)
+
+        oDiv.innerHTML = typeof(num) + '-' + num
+    }
+
+</script>
