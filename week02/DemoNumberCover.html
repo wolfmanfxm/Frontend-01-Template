@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Number 转化</title>
+  <script src="F:\test\libs\vue-2.4.0.js"></script>
+  <style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    .container input[type='number']{
+        -moz-appearance: textfield;
+    }
+    span {
+      padding:0;
+      margin:0;
+    }
+    input {
+      width:1em;
+      height:2em;
+      text-align:center;
+    }
+    .sign {
+      background-color: lightblue;
+    } 
+    .exponent {
+      background-color: orange;
+    } 
+  </style>
+</head>
+
+<body>
+  <h1>数字转为 IEEE 754 Double Float 存储在内存里的格式</h1>
+  <div id="app">
+    <span v-for="v, i of bits">
+      <input :class="i > 0 ? i > 11 ? 'fraction' :'exponent':'sign' "  type="number" min=0 max=1 v-model="bits[i]"/>
+      <input v-if="i == 31" />
+      <br v-if="i == 31" />
+    </span>
+    <br />
+    <input style="width:5em;" v-model="value"/>
+    
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        bits: Array(65).join(0).split("").map(v => Number(v)),
+        value: 0
+      },
+      watch: {
+        value(val){
+          const bytes = new Uint8Array(8);
+          const memory = new Float64Array(bytes.buffer);
+          memory[0] = (val);
+          console.log("******");
+          for(var i = 0; i < 8; i++) {
+            var byte = bytes[i]
+            console.log(byte);
+            for(var j = 0; j < 8; j ++) {
+                this.bits[(8 - i) * 8 - j - 1] = byte & 1;
+                byte = byte >> 1;
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
