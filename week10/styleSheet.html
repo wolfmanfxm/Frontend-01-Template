@@ -1,0 +1,16 @@
+<style>
+    a {
+        background-color: lightgreen;
+    }
+</style>
+
+<link rel="stylesheet" title="x" href="data:text/css,p%7Bcolor:blue%7D">
+
+<a style="font-size: 20px;">abcd</a>
+<p>123456</p>
+<span>ABCD</span>
+
+<script>
+    document.styleSheets[0].insertRule("span { color: red; }", 1);     //  插到第一位，即 a {} 后面
+    console.log(document.styleSheets);
+</script>

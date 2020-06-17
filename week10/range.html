@@ -1,0 +1,13 @@
+<div id="a">01234<span>56789</span>abcdef</div>
+//	div 内有三个节点：第一个是text文本节点 01234 、第二个是span元素、第三个是text节点 abcdef ；
+//	span 内是一个文本节点 56789 ；
+
+<script>
+	let ele = document.getElementById("a");
+	let range = new Range();
+	range.setStart(ele.childNodes[0], 5);
+	range.setEnd(ele.childNodes[2], 3);
+    range.extractContents();				//	=>  #document-fragment  <span>789</span>"abc"
+    //  页面元素变为 <div id="a">01234<span>56</span>def</div>
+    //	要想将整个 span 截掉，就将其前一个节点的最后一位后面设置为起始位置，即：range.setStart(ele.childNodes[0], 5);
+</script>
