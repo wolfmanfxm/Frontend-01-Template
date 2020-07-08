@@ -1,9 +1,6 @@
 # Week13-lesson 1	编程与算法训练 | Proxy 与双向绑定
 
-
-
-
-
+代码：[proxy.html](F:\testSpace\geek\Frontend-01-Template\week13\proxy.html)  
 
 
 
